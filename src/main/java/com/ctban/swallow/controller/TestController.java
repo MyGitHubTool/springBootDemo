@@ -3,13 +3,13 @@ package com.ctban.swallow.controller;
 import com.ctban.swallow.conf.CommonApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author GuoJie 2018/7/4 16:37
  */
-@RestController
+@Controller
 public class TestController {
 
     @Value("${user.age}")
@@ -26,5 +26,10 @@ public class TestController {
         System.out.println(age);
         System.out.println(address);
         System.out.println(commonApplication.getAddress());
+    }
+
+    @RequestMapping("/")
+    public String testHtml() {
+        return "index";
     }
 }
