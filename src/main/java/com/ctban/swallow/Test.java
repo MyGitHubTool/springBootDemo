@@ -1,18 +1,15 @@
 package com.ctban.swallow;
 
-import com.ctban.swallow.service.Defaulable;
-import com.ctban.swallow.service.DefaulableFactory;
-import com.ctban.swallow.service.imp.DefaultableImpl;
-import com.ctban.swallow.service.imp.OverridableImpl;
+import com.ctban.swallow.dto.UserDTO;
 
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import static java.lang.Integer.compare;
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author GuoJie 2018/7/5 10:39
@@ -20,34 +17,39 @@ import static java.util.stream.Collectors.toList;
 public class Test {
 
     public static void main(String[] args) {
-        //测试Lambda 表达式
-        List<Integer> list = Arrays.asList(12, 13, 14, 15);
-//        list.sort((e1, e2) -> e1.compareTo(e2));
-//
-//        Defaulable defaulable = DefaulableFactory.create(DefaultableImpl::new);
-//
-//        System.out.println(defaulable.notRequired());
-//
-//        defaulable = DefaulableFactory.create(OverridableImpl::new);
-//        System.out.println(defaulable.notRequired());
+        UserDTO userDTO1 = new UserDTO();
+        userDTO1.setUserName("张三");
+        userDTO1.setAge(20);
 
-        //java中lambda表达式的使用
-        list.forEach(System.out::println);
-//        list.stream().map(x -> x + 0.5).forEach(System.out::println);
-//        System.out.print(list.stream().map(x -> x + 0.5).reduce(String::concat).get());
+        UserDTO userDTO2 = new UserDTO();
+        userDTO2.setUserName("李四");
+        userDTO2.setAge(25);
 
-        Predicate<Integer> ageFilter = (p) -> (p > 25);
-        //https://www.cnblogs.com/franson-2016/p/5593080.html
+        UserDTO userDTO3 = new UserDTO();
+        userDTO3.setUserName("王五");
+        userDTO3.setAge(26);
 
+        UserDTO userDTO4 = new UserDTO();
+        userDTO4.setUserName("赵六");
+        userDTO4.setAge(30);
 
+//        List<UserDTO> userDTOList = Arrays.asList(userDTO1, userDTO2, userDTO3, userDTO4);
+//        userDTOList.stream().filter(u -> (u.getAge() > 25)).map(UserDTO::getUserName).sorted(String::compareTo).limit(1).collect(Collectors.toList()).forEach(System.out::println);
 
-        System.out.println(list.stream().min((x1, x2) ->(compare(x1,x2))).get());
+        //java中的 时间的用法
+        Clock clock = Clock.systemDefaultZone();
+        long millis = clock.millis();
+        System.out.println(millis);
 
-//        filterTest(list, x -> x.startsWith("j"));
-    }
+        LocalTime localTime = LocalTime.now().withNano(0);
+        System.out.println(localTime.withNano(0));
 
-    public static void filterTest(List<String> strList, Predicate<String> condition) {
-        strList.stream().filter(x -> condition.test(x)).forEach(System.out::println);
+        LocalDate localDate = LocalDate.now();
+
+        LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
+        System.out.println(localDate);
+        System.out.println(localDateTime);
+
 
     }
 
